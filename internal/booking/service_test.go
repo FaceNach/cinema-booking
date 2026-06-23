@@ -1,12 +1,12 @@
 package booking
 
 import (
+	"cinema-seat-booking/internal/adapters/redis"
 	"sync"
 	"sync/atomic"
 	"testing"
 
 	"github.com/google/uuid"
-	"github.com/sikozonpc/cinema/internal/adapters/redis"
 )
 
 func TestConcurrentBooking_ExactlyOneWins(t *testing.T) {
