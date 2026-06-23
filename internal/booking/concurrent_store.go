@@ -30,7 +30,7 @@ func (s *ConcurrentStore) Book(b Booking) (Booking, error) {
 	return b, nil
 
 }
-func (s *ConcurrentStore) ListBookings(movieID string) []Booking {
+func (s *ConcurrentStore) ListBookings(movieID string) ([]Booking, error) {
 
 	s.RLock()
 	defer s.RUnlock()
@@ -43,6 +43,6 @@ func (s *ConcurrentStore) ListBookings(movieID string) []Booking {
 		}
 	}
 
-	return out
+	return out, nil
 
 }

@@ -22,7 +22,7 @@ func (s *MemoryStore) Book(b Booking) (Booking, error) {
 	return b, nil
 
 }
-func (s *MemoryStore) ListBookings(movieID string) []Booking {
+func (s *MemoryStore) ListBookings(movieID string) ([]Booking, error) {
 
 	out := make([]Booking, 0)
 
@@ -32,6 +32,6 @@ func (s *MemoryStore) ListBookings(movieID string) []Booking {
 		}
 	}
 
-	return out
+	return out, nil
 
 }

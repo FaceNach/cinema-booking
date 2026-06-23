@@ -36,7 +36,7 @@ func (s *RedisStore) Book(b Booking) (Booking, error) {
 	return session, nil
 }
 
-func (s *RedisStore) ListBookings(movieID string) []Booking {
+func (s *RedisStore) ListBookings(movieID string) ([]Booking, error) {
 	pattern := fmt.Sprintf("seat:%s:*", movieID)
 	var sessions []Booking
 
@@ -46,16 +46,16 @@ func (s *RedisStore) ListBookings(movieID string) []Booking {
 	for iter.Next(ctx) {
 		val, err := s.rdb.Get(ctx, iter.Val()).Result()
 		if err != nil {
-			continue
+			return nil, err
 		}
 		session, err := parseSession(val)
 		if err != nil {
-			continue
+			return nil, err
 		}
 		sessions = append(sessions, session)
 	}
 
-	return sessions
+	return sessions, nil
 }
 
 func (s *RedisStore) hold(b Booking) (Booking, error) {
