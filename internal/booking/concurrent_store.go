@@ -22,7 +22,7 @@ func (s *ConcurrentStore) Book(b Booking) (Booking, error) {
 
 	_, ok := s.bookings[b.SeatID]
 	if ok {
-		return Booking{}, ErrSeatAlredyBooked
+		return Booking{}, ErrSeatAlreadyBooked
 	}
 
 	s.bookings[b.SeatID] = b
